@@ -1,20 +1,21 @@
 import React from "react";
 
-function ContactCard({ contact }) {
+function MessageCard({ contact }) {
   return (
     <div
       style={{ cursor: "pointer", marginBottom: 1, marginTop: 0 }}
       className="box media"
     >
-      <figure className="image is-64x64 media-left">
+      <div className="media-left">Sent To:</div>
+      {/* <figure className="image is-64x64 media-left">
         <img className="is-rounded" src={contact.photo} alt={contact.name} />
-      </figure>
+      </figure> */}
       <div className="media-content">
         <div className="content">
           <p>
-            <strong>{contact.name}</strong>
+            <strong>{contact.name}</strong> <small>on 13, June 2022</small>
             <br />
-            <small>from {contact.company}</small>
+            <strong>OTP</strong>: 21230
           </p>
         </div>
       </div>
@@ -22,4 +23,4 @@ function ContactCard({ contact }) {
   );
 }
 
-export default ContactCard;
+export default MessageCard;

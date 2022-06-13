@@ -23,27 +23,27 @@ function ContactInfo() {
         }}
         className="column box"
       >
-        <div class="level">
-          <div class="level-item">
-            <figure class="image is-128x128">
-              <img class="is-rounded" src={info.photo} alt={info.name} />
+        <div className="level">
+          <div className="level-item">
+            <figure className="image is-128x128">
+              <img className="is-rounded" src={info.photo} alt={info.name} />
             </figure>
           </div>
         </div>
-        <h5 class="title is-5">{info.name}</h5>
-        <p class="subtitle is-6">{info.email}</p>
-        <p class="subtitle is-6">{info.number}</p>
+        <h5 className="title is-5">{info.name}</h5>
+        <p className="subtitle is-6">{info.email}</p>
+        <p className="subtitle is-6">{info.number}</p>
         <Link to={`/message/${info.id}`} state={{ info: info }}>
           <button
             style={{ marginBottom: 4 }}
-            className="button is-primary is-fullwidth"
+            className="button is-link is-fullwidth"
           >
             Send OTP
           </button>
         </Link>
         <button
           onClick={() => navigate(-1)}
-          className="button is-primary is-light is-fullwidth"
+          className="button is-link is-light is-fullwidth"
         >
           Back
         </button>

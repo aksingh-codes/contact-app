@@ -6,17 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 const contacts = contactsData.contacts;
 
 contacts.forEach((contact) => {
-  contact.number = 12839021309;
+  contact.number = process.env.REACT_APP_TEST_PHONE_NO;
 });
-
-console.log(contacts);
 
 function Contacts() {
   const navigate = useNavigate();
 
   return (
     <>
-      {console.log(contacts)}
       {contacts.map((contact) => (
         <Link
           to={`info/${contact.id}`}

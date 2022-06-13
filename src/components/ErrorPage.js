@@ -4,9 +4,9 @@ function ErrorPage() {
   return (
     <>
       <section className="hero is-danger">
-        <div class="hero-body">
-          <p class="title">Error</p>
-          <p class="subtitle">Page Not Found :(</p>
+        <div className="hero-body">
+          <p className="title">Error</p>
+          <p className="subtitle">Page Not Found :(</p>
         </div>
       </section>
     </>

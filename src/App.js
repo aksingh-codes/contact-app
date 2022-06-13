@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
 // CSS
@@ -11,20 +12,61 @@ import ErrorPage from "./components/ErrorPage";
 import ContactInfo from "./components/ContactInfo";
 import MessageUI from "./components/MessageUI";
 
+const Menu = ({ link, text, id, activeMenu, setActiveMenu }) => {
+  return (
+    <li
+      onClick={() => {
+        setActiveMenu(id);
+      }}
+      className={activeMenu === id ? "is-active" : ""}
+    >
+      <Link to={link}>{text}</Link>
+    </li>
+  );
+};
+
+const menuData = [
+  {
+    link: "/",
+    text: "Contacts",
+  },
+  {
+    link: "/messages",
+    text: "Messages",
+  },
+];
+
 function App() {
+  const [activeMenu, setActiveMenu] = useState(0);
+
   return (
     <div className="App">
-      <div className="tabs is-centered ">
+      <div
+        style={{
+          position: "fixed",
+          zIndex: 1,
+          background: "white",
+          width: "100vw",
+          top: 0,
+        }}
+        className="tabs is-centered "
+      >
         <ul>
-          <li className="is-active">
-            <Link to="/">Contacts</Link>
-          </li>
-          <li>
-            <Link to="/messages">Messages</Link>
-          </li>
+          {menuData.map((data, indx) => {
+            return (
+              <Menu
+                link={data.link}
+                text={data.text}
+                id={indx}
+                activeMenu={activeMenu}
+                setActiveMenu={setActiveMenu}
+                key={indx}
+              />
+            );
+          })}
         </ul>
       </div>
-      <div className="container">
+      <div style={{ marginTop: 40.6 + 24 }} className="container">
         <Routes>
           <Route path="/" element={<Contacts />} />
           <Route path="/messages" element={<Messages />} />
