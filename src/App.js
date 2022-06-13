@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 
 // CSS
-import "./App.css";
 import "bulma/css/bulma.min.css";
 
 // Components
@@ -37,7 +36,9 @@ const menuData = [
 ];
 
 function App() {
-  const [activeMenu, setActiveMenu] = useState(0);
+  const location = useLocation();
+  const isMessage = location.pathname.includes("message");
+  const [activeMenu, setActiveMenu] = useState(isMessage ? 1 : 0);
 
   return (
     <div className="App">
