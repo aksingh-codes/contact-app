@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import generateOTP from "../utils/generateOTP";
+import twilio from "../api/twilio";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MessageUI() {
   const [OTP, setOTP] = useState("");
@@ -9,11 +13,33 @@ function MessageUI() {
   const location = useLocation();
   const info = location.state.info;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const newOTP = generateOTP();
     setOTP(newOTP);
   }, []);
+
+  const sendMessage = () => {
+    setLoading(true);
+
+    twilio
+      .post("/send-message", {
+        message: completeMessage,
+        to: info.number,
+      })
+      .then((res) => {
+        notify(res.data.message);
+      })
+      .catch((err) => {
+        console.error(err);
+        notifyError("Something went wrong");
+      })
+      .finally(setLoading(false));
+  };
+
+  const notify = (message) => toast.success(message);
+  const notifyError = (message) => toast.error(message);
 
   return (
     <>
@@ -47,13 +73,25 @@ function MessageUI() {
         </div>
 
         <div className="field is-grouped">
-          <div className="control">
-            <button className="button is-link">Send</button>
+          <div
+            className="control"
+            onClick={() => {
+              sendMessage();
+            }}
+          >
+            <button
+              disabled={loading}
+              className={`button is-link ${loading && "is-loading"}`}
+            >
+              Send
+            </button>
           </div>
           <div className="control" onClick={() => navigate(-2)}>
             <button className="button is-link is-light">Cancel</button>
           </div>
         </div>
+
+        <ToastContainer />
       </div>
     </>
   );
