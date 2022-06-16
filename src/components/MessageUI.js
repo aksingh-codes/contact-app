@@ -30,12 +30,13 @@ function MessageUI() {
       })
       .then((res) => {
         notify(res.data.message);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
         notifyError("Something went wrong");
-      })
-      .finally(setLoading(false));
+        setLoading(false);
+      });
   };
 
   const notify = (message) => toast.success(message);
@@ -73,13 +74,11 @@ function MessageUI() {
         </div>
 
         <div className="field is-grouped">
-          <div
-            className="control"
-            onClick={() => {
-              sendMessage();
-            }}
-          >
+          <div className="control">
             <button
+              onClick={() => {
+                sendMessage();
+              }}
               disabled={loading}
               className={`button is-link ${loading && "is-loading"}`}
             >
