@@ -1,4 +1,5 @@
 import React from "react";
+import userIcon from "../assets/userIcon.png";
 const monthARR = [
   "January",
   "February",
@@ -32,12 +33,16 @@ function MessageCard({ contact, message }) {
       style={{ cursor: "pointer", marginBottom: 1, marginTop: 0 }}
       className="box media"
     >
-      <div className="media-left">Sent To:</div>
-
+      <div className="media-left">Sent to:</div>
       <div className="media-content">
         <div className="content">
           <p>
-            <strong>{message.to}</strong>{" "}
+            <strong>
+              {message.first_name
+                ? `${message.first_name} ${message.last_name}`
+                : message.to}
+            </strong>{" "}
+            <br />
             <small>
               on {day}, {monthARR[month]} {year} at {getTime(date)}
             </small>
@@ -46,6 +51,15 @@ function MessageCard({ contact, message }) {
           </p>
         </div>
       </div>
+      <figure className="media-right">
+        <p className="image is-64x64">
+          <img
+            className="is-rounded"
+            src={message.photo ? message.photo : userIcon}
+            alt={"user"}
+          />
+        </p>
+      </figure>
     </div>
   );
 }
