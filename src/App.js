@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 
 // CSS
 import "bulma/css/bulma.min.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 // Components
 import Contacts from "./components/Contacts";
@@ -10,19 +10,6 @@ import Messages from "./components/Messages";
 import ErrorPage from "./components/ErrorPage";
 import ContactInfo from "./components/ContactInfo";
 import MessageUI from "./components/MessageUI";
-
-const Menu = ({ link, text, id, activeMenu, setActiveMenu }) => {
-  return (
-    <li
-      onClick={() => {
-        setActiveMenu(id);
-      }}
-      className={activeMenu === id ? "is-active" : ""}
-    >
-      <Link to={link}>{text}</Link>
-    </li>
-  );
-};
 
 const menuData = [
   {
@@ -35,11 +22,14 @@ const menuData = [
   },
 ];
 
-function App() {
-  const location = useLocation();
-  const isMessage = location.pathname.includes("message");
-  const [activeMenu, setActiveMenu] = useState(isMessage ? 1 : 0);
+const activeStyles = {
+  color: "#485fc7",
+  borderBottomColor: "#485fc7",
+  borderBottomStyle: "solid",
+  borderBottomWidth: "1px",
+};
 
+function App() {
   return (
     <div className="App">
       <div
@@ -55,19 +45,18 @@ function App() {
         <ul>
           {menuData.map((data, indx) => {
             return (
-              <Menu
-                link={data.link}
-                text={data.text}
-                id={indx}
-                activeMenu={activeMenu}
-                setActiveMenu={setActiveMenu}
+              <NavLink
                 key={indx}
-              />
+                to={data.link}
+                style={({ isActive }) => (isActive ? activeStyles : undefined)}
+              >
+                {data.text}
+              </NavLink>
             );
           })}
         </ul>
       </div>
-      <div style={{ marginTop: 40.6 + 24 }} className="container">
+      <div style={{ marginTop: 40.6 + 24 }} className="container ">
         <Routes>
           <Route path="/" element={<Contacts />} />
           <Route path="/messages" element={<Messages />} />

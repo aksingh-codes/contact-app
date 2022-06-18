@@ -26,7 +26,7 @@ function MessageUI() {
     twilio
       .post("/send-message", {
         message: completeMessage,
-        to: info.number,
+        to: info.phone,
       })
       .then((res) => {
         notify(res.data.message);
@@ -51,10 +51,14 @@ function MessageUI() {
             style={{ marginRight: 8 }}
             className="image is-24x24 media-left"
           >
-            <img className="is-rounded" src={info.photo} alt={info.name} />
+            <img
+              className="is-rounded"
+              src={info.photo}
+              alt={info.first_name}
+            />
           </figure>
-          {info.name}
-          <small>{", " + info.number}</small>
+          {info.first_name} {info.last_name}
+          <small>{", " + info.phone}</small>
         </div>
         <div className="block"></div>
         <div className="field">
