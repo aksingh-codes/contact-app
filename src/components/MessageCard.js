@@ -14,14 +14,18 @@ const monthARR = [
   "December",
 ];
 
+const getTime = (date) =>
+  date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
 function MessageCard({ contact, message }) {
   const date = new Date(message.date);
   const day = date.getDay();
   const month = date.getMonth();
   const year = date.getFullYear();
-
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
 
   return (
     <div
@@ -35,7 +39,7 @@ function MessageCard({ contact, message }) {
           <p>
             <strong>{message.to}</strong>{" "}
             <small>
-              on {day}, {monthARR[month]} {year} at {hours}:{minutes}
+              on {day}, {monthARR[month]} {year} at {getTime(date)}
             </small>
             <br />
             <strong>Message</strong>: {message.body}
